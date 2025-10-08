@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Paletto - The Color Palette Generator You Are Looking For!</title>
+    <link rel="shortcut icon" href="../paletto-logo-4.png" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/2e12323ded.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <header>
+            <nav>
+                <div class="website-name">
+                    <div class="website-logo">
+                        <img width="40" height="40" src="../paletto-logo-icon.png" alt="color-palette" />
+                    </div>
+                    <h1>Paletto</h1>
+                </div>
+                <a href="../favorites/index.html" class="favorites-link">
+                    <button type="button" class="favorites-btn">
+                        <i class="fa-solid fa-star"></i>
+                        <span>Favorites</span>
+                    </button>
+                </a>
+            </nav>
+        </header>
+
+        <main>
+            <section class="hero-section">
+                <h1>
+                    <pre>Create Beautiful</pre>
+                    <pre>Color Palettes</pre>
+                </h1>
+                <p>Generate random color combinations or craft your own custom palettes. Click any color to copy its hex
+                    code.</p>
+            </section>
+
+            <section class="generate-section">
+                <div class="generate-container">
+                    <h2>Random Palette Generator</h2>
+                    <p>Click generate to discover beautiful color combinations</p>
+                    <button type="button" id="generate-btn">
+                        <i class="fa-solid fa-bolt"></i>
+                        <span>Generate New Palette</span>
+                    </button>
+                </div>
+                <div id="palette-container">
+                    <div class="palette-color"><span>#780000</span></div>
+                    <div class="palette-color"><span>#C1121F</span></div>
+                    <div class="palette-color"><span>#FDF0D5</span></div>
+                    <div class="palette-color"><span>#003049</span></div>
+                    <div class="palette-color"><span>#669BBC</span></div>
+                </div>
+            </section>
+
+            <div class="border"></div>
+
+            <section class="create-section">
+                <div class="create-container">
+                    <h2>Custom Palette Creator</h2>
+                    <p>Build your own color palettes by adding hex colors</p>
+                    <div class="input-container">
+                        <input type="text" id="color-input" value="#">
+                        <button type="button" id="add-color-btn">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                        <button type="button" id="save-palette-btn">
+                            <i class="fa-solid fa-check"></i>
+                        </button>
+                    </div>
+                </div>
+                <div id="empty-palette">
+                    <div class="website-logo-bg">
+                        <img width="58" height="58" src="../paletto-logo-bg.png" alt="color-palette" />
+                    </div>
+                    <p>Your custom palettes will appear here. Start by adding colors!</p>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>
+                Made with
+                <i class="fa-solid fa-heart"></i>
+                by
+                <a href="https://ahmedgaballah.netlify.app" target="_blank">
+                    <span>Ahmed Gaballah</span>
+                </a>
+            </p>
+        </footer>
+    </div>
+
+    <script src="main.js"></script>
+
+</body>
+
+</html>
