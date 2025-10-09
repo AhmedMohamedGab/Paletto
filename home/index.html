@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Paletto - The Color Palette Generator You Are Looking For!</title>
-    <link rel="shortcut icon" href="../paletto-logo-4.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../paletto-logo-icon.png" type="image/x-icon">
     <script src="https://kit.fontawesome.com/2e12323ded.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -14,16 +14,16 @@
     <div class="container">
         <header>
             <nav>
-                <div class="website-name">
+                <a href="index.html" class="website-name">
                     <div class="website-logo">
                         <img width="40" height="40" src="../paletto-logo-icon.png" alt="color-palette" />
                     </div>
                     <h1>Paletto</h1>
-                </div>
+                </a>
                 <a href="../favorites/index.html" class="favorites-link">
-                    <button type="button" class="favorites-btn">
+                    <button type="button" id="favorites-btn">
                         <i class="fa-solid fa-star"></i>
-                        <span>Favorites</span>
+                        <span>Favorite Palettes</span>
                     </button>
                 </a>
             </nav>
@@ -49,26 +49,28 @@
                     </button>
                 </div>
                 <div id="palette-container">
-                    <div class="palette-color"><span>#780000</span></div>
-                    <div class="palette-color"><span>#C1121F</span></div>
-                    <div class="palette-color"><span>#FDF0D5</span></div>
-                    <div class="palette-color"><span>#003049</span></div>
-                    <div class="palette-color"><span>#669BBC</span></div>
+                    <div class="palette-color">#227C9D</div>
+                    <div class="palette-color">#17C3B2</div>
+                    <div class="palette-color">#FFCB77</div>
+                    <div class="palette-color">#FEF9EF</div>
+                    <div class="palette-color">#FE6D73</div>
                 </div>
             </section>
 
-            <div class="border"></div>
+            <div class="border">
+                <hr>
+            </div>
 
             <section class="create-section">
                 <div class="create-container">
                     <h2>Custom Palette Creator</h2>
                     <p>Build your own color palettes by adding hex colors</p>
                     <div class="input-container">
-                        <input type="text" id="color-input" value="#">
-                        <button type="button" id="add-color-btn">
+                        <input maxlength="7" type="text" id="color-input" value="#">
+                        <button type="button" id="add-color-btn" title="Add Color">
                             <i class="fa-solid fa-plus"></i>
                         </button>
-                        <button type="button" id="save-palette-btn">
+                        <button type="button" id="save-palette-btn" title="Save Palette">
                             <i class="fa-solid fa-check"></i>
                         </button>
                     </div>
@@ -92,6 +94,16 @@
                 </a>
             </p>
         </footer>
+    </div>
+
+    <!-- toast blueprint -->
+    <div id="toast">
+        <div class="toast-icon">
+            <i class="fa-solid fa-check"></i>
+        </div>
+        <div class="toast-content">
+            This is a toast message.
+        </div>
     </div>
 
     <script src="main.js"></script>
