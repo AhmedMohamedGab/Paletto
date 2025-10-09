@@ -1,0 +1,167 @@
+/* Color Palette:
+
+#ffffff - White
+#ffffffcc - Off-white
+#7e47eb - Purple
+#8b5cf6 - Violet
+#2b303b - Dark Gray
+#737b8c - medium-Gray
+#e4e4e7 - Light Gray
+#ef4444 - Red
+ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "ui-sans-serif", "system-ui", sans-serif;
+}
+
+body {
+    background-color: #ffffffcc;
+}
+
+header {
+    width: 100%;
+    background-color: #ffffffcc;
+    backdrop-filter: blur(4px);
+    border-bottom: 1px solid #e4e4e7;
+    position: sticky;
+    top: 0;
+}
+
+nav {
+    max-width: 1152px;
+    height: 72px;
+    margin: 0 auto;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.website-name {
+    color: #2b303b;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.website-logo {
+    width: 40px;
+    height: 40px;
+}
+
+.website-logo img {
+    width: 100%;
+    height: 100%;
+}
+
+.website-name h1 {
+    font-size: 24px;
+    font-weight: bolder;
+    margin-left: 12px;
+}
+
+main {
+    padding: 0 0 64px;
+    transition: all 0.6s ease;
+}
+
+section {
+    max-width: 1152px;
+    margin: 0 auto;
+    padding: 48px 16px;
+}
+
+#empty-palette {
+    padding: 64px 0;
+    text-align: center;
+}
+
+.website-logo-bg {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 16px;
+}
+
+#empty-palette p {
+    color: #737b8c;
+    font-size: 16px;
+    line-height: 1.5rem;
+}
+
+#empty-palette a {
+    color: #7e47eb;
+    text-decoration: none;
+}
+
+#empty-palette a:hover {
+    text-decoration: underline;
+}
+
+#toast {
+    width: 354px;
+    height: 52px;
+    position: fixed;
+    bottom: 34px;
+    right: 34px;
+    background-color: #ffffff;
+    color: #2b303b;
+    font-weight: 600;
+    padding: 14px;
+    border-radius: 8px;
+    border: 1px solid #e4e4e7;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    transition: all 1s ease;
+}
+
+.toast-icon {
+    background-color: #2b303b;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.toast-icon i {
+    color: #ffffff;
+    font-size: 8px;
+}
+
+.toast-content {
+    font-size: 13px;
+}
+
+.close {
+    transform: translateY(50px);
+    opacity: 0;
+}
+
+@media (max-width: 768px) {
+    nav {
+        height: 60px;
+    }
+
+    .website-name {
+        transform: scale(0.9);
+    }
+
+    main {
+        padding: 0 0 32px;
+    }
+
+    section {
+        padding: 32px 16px;
+    }
+
+    #empty-palette p {
+        font-size: 12px;
+    }
+}

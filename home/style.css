@@ -65,6 +65,7 @@ nav {
 
 main {
   padding: 0 0 64px;
+  transition: all 0.6s ease;
 }
 
 section {
@@ -73,11 +74,11 @@ section {
   padding: 48px 16px;
 }
 
-.hero-section {
+#hero-section {
   padding: 64px 16px 32px;
 }
 
-.hero-section h1 {
+#hero-section h1 {
   margin: 0 0 24px;
   font-size: 60px;
   text-align: center;
@@ -85,7 +86,7 @@ section {
   color: #7e47eb;
 }
 
-.hero-section p {
+#hero-section p {
   width: 672px;
   margin: auto;
   line-height: 1.4;
@@ -183,7 +184,7 @@ section {
   flex-basis: 260%;
 }
 
-.border {
+#border {
   max-width: 1152px;
   margin: 0 auto;
   padding: 32px 16px;
@@ -347,12 +348,12 @@ footer a:hover {
     padding: 32px 16px;
   }
 
-  .hero-section h1 {
+  #hero-section h1 {
     width: 100%;
     font-size: 40px;
   }
 
-  .hero-section p {
+  #hero-section p {
     width: 100%;
     font-size: 14px;
   }
@@ -364,7 +365,7 @@ footer a:hover {
 
   .generate-container p,
   .create-container p {
-    font-size: 11px;
+    font-size: 12px;
   }
 
   #favorites-btn,
@@ -380,10 +381,10 @@ footer a:hover {
   }
 
   .palette-color {
-    font-size: 10px;
+    font-size: 12px;
   }
 
-  .border {
+  #border {
     padding: 24px 16px;
   }
 
@@ -403,7 +404,7 @@ footer a:hover {
   }
 
   #empty-palette p {
-    font-size: 11px;
+    font-size: 12px;
   }
 
   footer {
