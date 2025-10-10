@@ -176,11 +176,12 @@ section {
   font-weight: bold;
   letter-spacing: 1px;
   color: #2b303b;
+  text-shadow: -1px -1px 0 #e4e4e7, 1px -1px 0 #e4e4e7, -1px 1px 0 #e4e4e7,
+    1px 1px 0 #e4e4e7;
   transition: all 0.15s ease;
 }
 
 .palette-color:hover {
-  filter: brightness(90%);
   flex-basis: 260%;
 }
 
