@@ -1,22 +1,41 @@
-let initialPalette = ['EF476F', 'FFD166', '06D6A0', '118AB2', '073B4C'];    // initial color palette
-let palette = [...initialPalette];  // current color palette
+let initialPalette = ['EF476F', 'FFD166', '06D6A0', '118AB2', '073B4C'];    // initial generated color palette
+let generatedPalette = [...initialPalette];  // current generated color palette
 
 let generateBtn = document.getElementById('generate-btn'); // generate button
 let paletteColor = document.querySelectorAll('.palette-color'); // color divs
 
-window.onload = showPalette();    // initialize color palette
+document.addEventListener('DOMContentLoaded', function () {
+    showPalette();    // show initial generated color palette
+});
 
 // show color palette
 function showPalette() {
     paletteColor.forEach((colorDiv, index) => {
-        colorDiv.style.backgroundColor = `#${palette[index]}`;
+        colorDiv.style.backgroundColor = `#${generatedPalette[index]}`;
     });
 }
 
 // show color code on mouse enter
 function showColorCode(id) {
     let colorDiv = document.getElementById(id);
-    colorDiv.innerHTML = `${palette[id]}`;
+
+    if (isLight(`#${generatedPalette[id]}`) === "light") {
+        colorDiv.style.color = "#2b303b";   // set dark text color for light background
+    } else {
+        colorDiv.style.color = "#fff";   // set light text color for dark background
+    }
+
+    colorDiv.innerHTML = `${generatedPalette[id]}`;  // show color code
+}
+
+// determine if color is light or dark
+function isLight(hex) {
+    const rgb = parseInt(hex.slice(1), 16);
+    const r = (rgb >> 16) & 0xff;
+    const g = (rgb >> 8) & 0xff;
+    const b = rgb & 0xff;
+    const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+    return luminance > 0.5 ? "light" : "dark";
 }
 
 // hide color code on mouse leave
@@ -27,7 +46,7 @@ function hideColorCode(id) {
 
 // copy color code to clipboard on click
 function copyColorCode(id) {
-    navigator.clipboard.writeText(`${palette[id]}`);    // copy color code to clipboard
+    navigator.clipboard.writeText(`${generatedPalette[id]}`);    // copy color code to clipboard
     let colorDiv = document.getElementById(id);
     colorDiv.innerHTML = `<i class="fa-solid fa-check" style="font-size:22px"></i>`;    // show check icon
     showToast('check', 'Color code copied to clipboard!'); // show toast message
@@ -71,12 +90,11 @@ function generateRandomColor() {
 
 // generate random color palette
 function generateRandomPalette() {
-    palette = [];  // reset palette
+    generatedPalette = [];  // reset generated color palette
     // generate 5 random colors
     for (let i = 0; i < 5; i++) {
         let color = generateRandomColor();  // generate random color
-        palette.push(color);   // add random color to palette
+        generatedPalette.push(color);   // add random color to generated palette
     }
-    showPalette();    // update color palette
-    showToast('bolt', 'New color palette generated!'); // show toast message
+    showPalette();    // update generated color palette
 }

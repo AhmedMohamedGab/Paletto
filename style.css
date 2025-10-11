@@ -23,6 +23,7 @@ body {
 
 header {
   width: 100%;
+  height: 72.8px;
   background-color: #ffffffcc;
   backdrop-filter: blur(4px);
   border-bottom: 1px solid #e4e4e7;
@@ -32,7 +33,7 @@ header {
 
 nav {
   max-width: 1152px;
-  height: 72px;
+  height: 100%;
   margin: 0 auto;
   padding: 16px;
   display: flex;
@@ -65,7 +66,6 @@ nav {
 
 main {
   padding: 0 0 64px;
-  transition: all 0.6s ease;
 }
 
 section {
@@ -89,7 +89,7 @@ section {
 #hero-section p {
   width: 672px;
   margin: auto;
-  line-height: 1.4;
+  line-height: 1.5;
   font-size: 20px;
   text-align: center;
   color: #737b8c;
@@ -175,9 +175,6 @@ section {
   font-size: 14px;
   font-weight: bold;
   letter-spacing: 1px;
-  color: #2b303b;
-  text-shadow: -1px -1px 0 #e4e4e7, 1px -1px 0 #e4e4e7, -1px 1px 0 #e4e4e7,
-    1px 1px 0 #e4e4e7;
   transition: all 0.15s ease;
 }
 
@@ -213,6 +210,7 @@ hr {
   border-radius: 10px;
   padding: 8px 12px;
   font-size: 14px;
+  text-transform: uppercase;
   line-height: 1.25rem;
   color: #2b303b;
   outline: none;
@@ -255,10 +253,15 @@ hr {
   margin: 0 auto 16px;
 }
 
+.website-logo-bg img {
+  width: 100%;
+  height: 100%;
+}
+
 #empty-palette p {
   color: #737b8c;
   font-size: 16px;
-  line-height: 1.5rem;
+  line-height: 1.5;
 }
 
 footer {
@@ -333,87 +336,140 @@ footer a:hover {
 }
 
 @media (max-width: 768px) {
+  header {
+    height: 128px;
+  }
+
   nav {
-    height: 60px;
+    max-width: 90%;
   }
 
-  .website-name {
-    transform: scale(0.9);
+  .website-logo {
+    width: 72px;
+    height: 72px;
   }
 
-  main {
-    padding: 0 0 32px;
+  .website-name h1 {
+    font-size: 48px;
   }
 
-  section {
-    padding: 32px 16px;
+  section,
+  #hero-section {
+    max-width: 90%;
+    padding: 128px 16px;
   }
 
   #hero-section h1 {
-    width: 100%;
-    font-size: 40px;
+    font-size: 108px;
+    margin: 0 0 72px;
+    line-height: 128%;
   }
 
   #hero-section p {
-    width: 100%;
-    font-size: 14px;
+    width: 90%;
+    font-size: 36px;
+  }
+
+  .generate-container,
+  .create-container {
+    margin-bottom: 96px;
   }
 
   .generate-container h2,
   .create-container h2 {
-    font-size: 24px;
+    font-size: 64px;
+    margin-bottom: 36px;
+    line-height: 5rem;
   }
 
   .generate-container p,
   .create-container p {
-    font-size: 12px;
+    font-size: 36px;
+    margin-bottom: 128px;
   }
 
   #favorites-btn,
   #generate-btn {
-    height: 40px;
-    font-size: 12px;
+    height: 72px;
+    font-size: 32px;
     padding: 0 24px;
   }
 
   #palette-container {
-    width: 80%;
-    height: 150px;
+    width: 90%;
+    height: 380px;
   }
 
   .palette-color {
-    font-size: 12px;
-  }
-
-  #border {
-    padding: 24px 16px;
+    font-size: 36px;
   }
 
   .input-container {
     width: 80%;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: 36px;
   }
 
   #color-input {
     width: 100%;
+    height: 96px;
+    font-size: 38px;
+  }
+
+  #color-input:focus {
+    box-shadow: 0px 0px 0px 12px #7e47eb;
+    outline: 6px solid #ffffff;
   }
 
   .input-container button {
     width: 100%;
+    height: 96px;
+    font-size: 36px;
+  }
+
+  .website-logo-bg {
+    width: 128px;
+    height: 128px;
+    margin: 0 auto 48px;
   }
 
   #empty-palette p {
-    font-size: 12px;
+    font-size: 36px;
+    line-height: 1.5;
   }
 
   footer {
-    padding: 16px 0;
-    margin: 32px 0 0;
+    padding: 56px 0;
+    margin: 96px 0 0;
   }
 
   footer p {
-    font-size: 12px;
+    font-size: 32px;
+  }
+
+  #toast {
+    width: 70%;
+    height: 108px;
+    top: 10%;
+    right: 15%;
+  }
+
+  .toast-icon {
+    width: 48px;
+    height: 48px;
+    margin-right: 24px;
+  }
+
+  .toast-icon i {
+    font-size: 20px;
+  }
+
+  .toast-content {
+    font-size: 28px;
+  }
+
+  .close {
+    transform: translateY(-108px);
   }
 }
