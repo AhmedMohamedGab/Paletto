@@ -165,7 +165,8 @@ section {
   justify-content: space-between;
 }
 
-.palette-color {
+.palette-color,
+.custom-color {
   height: 100%;
   flex-basis: 100%;
   cursor: pointer;
@@ -178,7 +179,8 @@ section {
   transition: all 0.15s ease;
 }
 
-.palette-color:hover {
+.palette-color:hover,
+.custom-color:hover {
   flex-basis: 260%;
 }
 
@@ -400,7 +402,8 @@ footer a:hover {
     height: 380px;
   }
 
-  .palette-color {
+  .palette-color,
+  .custom-color {
     font-size: 36px;
   }
 

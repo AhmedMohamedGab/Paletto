@@ -1,8 +1,11 @@
 let initialPalette = ['EF476F', 'FFD166', '06D6A0', '118AB2', '073B4C'];    // initial generated color palette
 let generatedPalette = [...initialPalette];  // current generated color palette
+let customPalette = [];  // custom color palette
 
-let generateBtn = document.getElementById('generate-btn'); // generate button
-let paletteColor = document.querySelectorAll('.palette-color'); // color divs
+let paletteColor = document.querySelectorAll('.palette-color'); // generated palette color divs
+let colorInput = document.getElementById('color-input');    // color input field
+let emptyPalette = document.getElementById('empty-palette');   // empty palette container
+let createSection = document.getElementById('create-section');  // create section
 
 document.addEventListener('DOMContentLoaded', function () {
     showPalette();    // show initial generated color palette
@@ -19,13 +22,21 @@ function showPalette() {
 function showColorCode(id) {
     let colorDiv = document.getElementById(id);
 
-    if (isLight(`#${generatedPalette[id]}`) === "light") {
-        colorDiv.style.color = "#2b303b";   // set dark text color for light background
-    } else {
-        colorDiv.style.color = "#fff";   // set light text color for dark background
+    if (id < 5) {   // generated palette
+        if (isLight(`#${generatedPalette[id]}`) === "light") {
+            colorDiv.style.color = "#2b303b";   // set dark text color for light background
+        } else {
+            colorDiv.style.color = "#fff";   // set light text color for dark background
+        }
+        colorDiv.innerHTML = `${generatedPalette[id]}`;  // show color code
+    } else {    // custom palette
+        if (isLight(`#${customPalette[id - 5]}`) === "light") {
+            colorDiv.style.color = "#2b303b";   // set dark text color for light background
+        } else {
+            colorDiv.style.color = "#fff";   // set light text color for dark background
+        }
+        colorDiv.innerHTML = `${customPalette[id - 5]}`;  // show color code
     }
-
-    colorDiv.innerHTML = `${generatedPalette[id]}`;  // show color code
 }
 
 // determine if color is light or dark
@@ -46,7 +57,11 @@ function hideColorCode(id) {
 
 // copy color code to clipboard on click
 function copyColorCode(id) {
-    navigator.clipboard.writeText(`${generatedPalette[id]}`);    // copy color code to clipboard
+    if (id < 5) {   // generated palette
+        navigator.clipboard.writeText(`${generatedPalette[id]}`);    // copy color code to clipboard
+    } else {    // custom palette
+        navigator.clipboard.writeText(`${customPalette[id - 5]}`);    // copy color code to clipboard
+    }
     let colorDiv = document.getElementById(id);
     colorDiv.innerHTML = `<i class="fa-solid fa-check" style="font-size:22px"></i>`;    // show check icon
     showToast('check', 'Color code copied to clipboard!'); // show toast message
@@ -97,4 +112,59 @@ function generateRandomPalette() {
         generatedPalette.push(color);   // add random color to generated palette
     }
     showPalette();    // update generated color palette
+}
+
+// Always keep '#' at the start and restrict input
+function keepHash() {
+    // Always ensure it starts with '#'
+    if (!colorInput.value.startsWith("#")) {
+        colorInput.value = "#" + colorInput.value.replace(/#/g, "");
+    }
+    // Limit to 6 hex digits
+    colorInput.value = "#" + colorInput.value.slice(1, 7);
+}
+
+// add color to custom palette
+let customPaletteContainer = document.createElement('div'); // create container of custom palette
+createSection.appendChild(customPaletteContainer);  // append the container to create section
+let index = 5;  // iterator to assign IDs for custom palette colors
+
+function addColor() {
+    // limit palette to 10 colors
+    if (customPalette.length >= 10) {
+        showToast('exclamation', 'Maximum 10 colors per palette');  // show toast message
+        return; // exit the function
+    }
+
+    let colorCode = colorInput.value.slice(1).toUpperCase();    // adjust user input
+    // if user input is not valid hex code -> do not proceed
+    if (isNotHex(colorCode)) {
+        showToast('exclamation', 'Please enter a valid hex color (e.g., #FF5733)');  // show toast message
+        return; // exit the function
+    }
+
+    // user input is valid
+    emptyPalette.remove();  // remove empty area
+    customPaletteContainer.id = 'palette-container';    // assign this ID to give container certain styles
+    customPalette.push(colorCode);  // add color to customPalette array
+    // color variable to hold the new color div
+    let color = `
+            <div class="custom-color" id="${index}" style="background-color:${colorInput.value}" onmouseenter="showColorCode(this.id)"
+                onmouseleave="hideColorCode(this.id)" onclick="copyColorCode(this.id)"></div>
+        `;
+    customPaletteContainer.innerHTML += color;  // add new color to custom palette
+    index++;    // increment ID for the next color
+    colorInput.value = '#'; // clear input field
+    showToast('check', 'Color added to palette!');  // show toast message
+}
+
+// check color entered by user
+function isNotHex(colorCode) {
+    let pureHex = colorCode.replace(/[^0-9A-F]/g, '');  // removingany non hex digit from color code
+    // if color code is empty, less than 6 digits, or has a non hex digit -> return true
+    if (colorCode === '' || colorCode.length < 6 || colorCode !== pureHex) {
+        return true;
+    }
+    // if color code is valid -> return false
+    return false;
 }
