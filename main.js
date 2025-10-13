@@ -142,7 +142,6 @@ function keepHash() {
 
 // add color to custom palette
 let customPaletteContainer = document.createElement('div'); // create container of custom palette
-createSection.appendChild(customPaletteContainer);  // append the container to create section
 
 function addColor() {
     // limit palette to 10 colors
@@ -157,10 +156,13 @@ function addColor() {
         showToast('exclamation', 'Please enter a valid hex color (e.g., #FF5733)');  // show toast message
         return; // exit the function
     }
-
     // user input is valid
-    emptyPalette.remove();  // remove empty area
-    customPaletteContainer.id = 'palette-container';    // assign this ID to give container certain styles
+    // if customPalette array is empty -> create the custom palette
+    if (customPalette.length === 0) {
+        customPaletteContainer.id = 'palette-container';    // assign this ID to give container certain styles
+        createSection.appendChild(customPaletteContainer);  // append the container to create section
+        emptyPalette.remove();  // remove the empty area
+    }
     customPalette.push(colorCode);  // add color to customPalette array
     showCustomPalette();    // refresh the custom palette
     colorInput.value = '#'; // clear input field
