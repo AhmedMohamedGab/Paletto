@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
     showPalette();    // show initial generated color palette
 });
 
-// show color palette
+// show generated color palette
 function showPalette() {
     paletteColor.forEach((colorDiv, index) => {
         colorDiv.style.backgroundColor = `#${generatedPalette[index]}`;
@@ -35,7 +35,12 @@ function showColorCode(id) {
         } else {
             colorDiv.style.color = "#fff";   // set light text color for dark background
         }
-        colorDiv.innerHTML = `${customPalette[id - 5]}`;  // show color code
+        // show color code and icons
+        colorDiv.querySelector('.color-tools').innerHTML = `
+            <i class="fa-regular fa-pen-to-square"></i>
+            <i class="fa-solid fa-trash" onclick="removeColor(${id})"></i>
+        `;
+        colorDiv.querySelector('.custom-color').innerHTML = `${customPalette[id - 5]}`;
     }
 }
 
@@ -52,18 +57,29 @@ function isLight(hex) {
 // hide color code on mouse leave
 function hideColorCode(id) {
     let colorDiv = document.getElementById(id);
-    colorDiv.innerHTML = ``;
+    if (id < 5) {   // generated palette
+        colorDiv.innerHTML = ``;
+    } else {    // custom palette
+        colorDiv.querySelector('.color-tools').innerHTML = ``;
+        colorDiv.querySelector('.custom-color').innerHTML = ``;
+    }
 }
 
 // copy color code to clipboard on click
 function copyColorCode(id) {
+    let colorDiv = document.getElementById(id);
+
     if (id < 5) {   // generated palette
         navigator.clipboard.writeText(`${generatedPalette[id]}`);    // copy color code to clipboard
+        colorDiv.innerHTML = `<i class="fa-solid fa-check" style="font-size:22px"></i>`;    // show check icon
     } else {    // custom palette
         navigator.clipboard.writeText(`${customPalette[id - 5]}`);    // copy color code to clipboard
+        // show check icon
+        colorDiv.querySelector('.custom-color').innerHTML = `
+            <i class="fa-solid fa-check" style="font-size:22px"></i>
+        `;
     }
-    let colorDiv = document.getElementById(id);
-    colorDiv.innerHTML = `<i class="fa-solid fa-check" style="font-size:22px"></i>`;    // show check icon
+
     showToast('check', 'Color code copied to clipboard!'); // show toast message
 }
 
@@ -127,7 +143,6 @@ function keepHash() {
 // add color to custom palette
 let customPaletteContainer = document.createElement('div'); // create container of custom palette
 createSection.appendChild(customPaletteContainer);  // append the container to create section
-let index = 5;  // iterator to assign IDs for custom palette colors
 
 function addColor() {
     // limit palette to 10 colors
@@ -147,13 +162,7 @@ function addColor() {
     emptyPalette.remove();  // remove empty area
     customPaletteContainer.id = 'palette-container';    // assign this ID to give container certain styles
     customPalette.push(colorCode);  // add color to customPalette array
-    // color variable to hold the new color div
-    let color = `
-            <div class="custom-color" id="${index}" style="background-color:${colorInput.value}" onmouseenter="showColorCode(this.id)"
-                onmouseleave="hideColorCode(this.id)" onclick="copyColorCode(this.id)"></div>
-        `;
-    customPaletteContainer.innerHTML += color;  // add new color to custom palette
-    index++;    // increment ID for the next color
+    showCustomPalette();    // refresh the custom palette
     colorInput.value = '#'; // clear input field
     showToast('check', 'Color added to palette!');  // show toast message
 }
@@ -167,4 +176,45 @@ function isNotHex(colorCode) {
     }
     // if color code is valid -> return false
     return false;
+}
+
+// show custom color palette
+function showCustomPalette() {
+    let paletteEl = ''; // palette element
+    // add colors to custom palette
+    for (let i = 5; i < customPalette.length + 5; i++) {
+        paletteEl += `
+            <div class="color-container" id="${i}" style="background-color:#${customPalette[i - 5]}"
+                onmouseenter="showColorCode(${i})" onmouseleave="hideColorCode(${i})">
+                <div class="color-tools"></div>
+                <div class="custom-color" onclick="copyColorCode(${i})"></div>
+            </div>
+        `;
+    }
+    customPaletteContainer.innerHTML = paletteEl;   // show custom palette
+}
+
+// remove a color from custom palette
+function removeColor(id) {
+    // if color to remove is the last -> remove the whole palettea and place the empty area
+    if (customPalette.length <= 1) {
+        customPalette = []; // empty the customPalette array
+        customPaletteContainer.remove();    // remove the custom palette
+        // create the empty area
+        emptyPalette.innerHTML = `
+            <div id="empty-palette">
+                <div class="website-logo-bg">
+                    <img width="58" height="58" src="paletto-logo-bg.png" alt="color-palette" />
+                </div>
+                <p>Your custom palettes will appear here. Start by adding colors!</p>
+            </div>
+        `;
+        createSection.appendChild(emptyPalette);    // append the empty area to create section
+        return; // exit the function
+    }
+    // color to remove is not the last
+    let colorDiv = document.getElementById(id);
+    colorDiv.remove();  // remove the color from custom palette
+    customPalette.splice(id - 5, 1);    // remove the color from customPalette array
+    showCustomPalette();    // refresh the custom palette
 }

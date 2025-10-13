@@ -7,7 +7,7 @@
 #2b303b - Dark Gray
 #737b8c - medium-Gray
 #e4e4e7 - Light Gray
-#ef4444 - Red
+#ff0000 - Red
  */
 
 * {
@@ -166,7 +166,7 @@ section {
 }
 
 .palette-color,
-.custom-color {
+.color-container {
   height: 100%;
   flex-basis: 100%;
   cursor: pointer;
@@ -179,9 +179,51 @@ section {
   transition: all 0.15s ease;
 }
 
+.color-container {
+  flex-direction: column;
+  position: relative;
+}
+
+.custom-color {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .palette-color:hover,
-.custom-color:hover {
+.color-container:hover {
   flex-basis: 260%;
+}
+
+.color-tools {
+  padding: 12px 0 0;
+  display: flex;
+  gap: 12px;
+  position: absolute;
+  top: 0;
+}
+
+.color-tools i {
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px 15px;
+  border-radius: 5px;
+}
+
+.color-tools i:hover {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.color-tools i.fa-pen-to-square:hover {
+  color: #8b5cf6;
+}
+
+.color-tools i.fa-trash:hover {
+  color: #ff0000;
 }
 
 #border {
@@ -403,7 +445,7 @@ footer a:hover {
   }
 
   .palette-color,
-  .custom-color {
+  .color-container {
     font-size: 36px;
   }
 
