@@ -200,15 +200,6 @@ function removeColor(id) {
     if (customPalette.length <= 1) {
         customPalette = []; // empty the customPalette array
         customPaletteContainer.remove();    // remove the custom palette
-        // create the empty area
-        emptyPalette.innerHTML = `
-            <div id="empty-palette">
-                <div class="website-logo-bg">
-                    <img width="58" height="58" src="paletto-logo-bg.png" alt="color-palette" />
-                </div>
-                <p>Your custom palettes will appear here. Start by adding colors!</p>
-            </div>
-        `;
         createSection.appendChild(emptyPalette);    // append the empty area to create section
         return; // exit the function
     }
