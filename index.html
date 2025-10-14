@@ -71,7 +71,8 @@
                     <h2>Custom Palette Creator</h2>
                     <p>Build your own color palettes by adding hex colors</p>
                     <div class="input-container">
-                        <input maxlength="7" type="text" id="color-input" value="#" oninput="keepHash()">
+                        <input maxlength="7" type="text" id="color-input" value="#" oninput="keepHash()"
+                            onkeydown="keepHash(event)">
                         <button type="button" id="add-color-btn" title="Add Color" onclick="addColor()">
                             <i class="fa-solid fa-plus"></i>
                         </button>

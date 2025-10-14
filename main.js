@@ -1,6 +1,8 @@
 let initialPalette = ['EF476F', 'FFD166', '06D6A0', '118AB2', '073B4C'];    // initial generated color palette
 let generatedPalette = [...initialPalette];  // current generated color palette
 let customPalette = [];  // custom color palette
+let colorMode = 'add';  // variable to setcolor input mode (add, edit)
+let editIndex;  // index of color to be edited
 
 let paletteColor = document.querySelectorAll('.palette-color'); // generated palette color divs
 let colorInput = document.getElementById('color-input');    // color input field
@@ -37,7 +39,7 @@ function showColorCode(id) {
         }
         // show color code and icons
         colorDiv.querySelector('.color-tools').innerHTML = `
-            <i class="fa-regular fa-pen-to-square"></i>
+            <i class="fa-regular fa-pen-to-square" onclick="editColor(${id})"></i>
             <i class="fa-solid fa-trash" onclick="removeColor(${id})"></i>
         `;
         colorDiv.querySelector('.custom-color').innerHTML = `${customPalette[id - 5]}`;
@@ -131,7 +133,12 @@ function generateRandomPalette() {
 }
 
 // Always keep '#' at the start and restrict input
-function keepHash() {
+function keepHash(event) {
+    // If the user pressed Enter -> add color
+    if (event && event.key === 'Enter') {
+        addColor();
+        return;
+    }
     // Always ensure it starts with '#'
     if (!colorInput.value.startsWith("#")) {
         colorInput.value = "#" + colorInput.value.replace(/#/g, "");
@@ -140,33 +147,48 @@ function keepHash() {
     colorInput.value = "#" + colorInput.value.slice(1, 7);
 }
 
-// add color to custom palette
+// add color to custom palette or edit existing color
 let customPaletteContainer = document.createElement('div'); // create container of custom palette
 
 function addColor() {
-    // limit palette to 10 colors
-    if (customPalette.length >= 10) {
-        showToast('exclamation', 'Maximum 10 colors per palette');  // show toast message
-        return; // exit the function
-    }
-
     let colorCode = colorInput.value.slice(1).toUpperCase();    // adjust user input
-    // if user input is not valid hex code -> do not proceed
-    if (isNotHex(colorCode)) {
-        showToast('exclamation', 'Please enter a valid hex color (e.g., #FF5733)');  // show toast message
-        return; // exit the function
+    // if color code is not valid hex or palette has no remaining space -> do not add color
+    if (!isValid(colorCode)) {
+        return; // do not proceed
     }
-    // user input is valid
     // if customPalette array is empty -> create the custom palette
     if (customPalette.length === 0) {
         customPaletteContainer.id = 'palette-container';    // assign this ID to give container certain styles
         createSection.appendChild(customPaletteContainer);  // append the container to create section
         emptyPalette.remove();  // remove the empty area
     }
-    customPalette.push(colorCode);  // add color to customPalette array
+    // check color input mode
+    if (colorMode === 'add') {  // if mode is 'add' ->
+        customPalette.push(colorCode);  // add color to customPalette array
+    } else {    // if mode is 'edit' ->
+        customPalette[editIndex - 5] = colorCode;   // edit color in customPalette array
+        colorMode = 'add';  // reset color input mode to 'add'
+    }
     showCustomPalette();    // refresh the custom palette
     colorInput.value = '#'; // clear input field
+    colorInput.focus(); // refocus on input field for better user experience
     showToast('check', 'Color added to palette!');  // show toast message
+}
+
+// check user input and palette remaining space
+function isValid(colorCode) {
+    // limit palette to 10 colors
+    if (customPalette.length >= 10) {
+        showToast('exclamation', 'Maximum 10 colors per palette');  // show toast message
+        return false;   // can not add color
+    }
+    // check if user input is not valid hex code
+    if (isNotHex(colorCode)) {
+        showToast('exclamation', 'Please enter a valid hex color (e.g., #FF5733)');  // show toast message
+        return false;   // can not add color
+    }
+    // color code is valid hex and palette has remaining space
+    return true;
 }
 
 // check color entered by user
@@ -209,5 +231,14 @@ function removeColor(id) {
     let colorDiv = document.getElementById(id);
     colorDiv.remove();  // remove the color from custom palette
     customPalette.splice(id - 5, 1);    // remove the color from customPalette array
+    colorMode = 'add'; // reset color input mode to 'add' in case user removed the color he/she was editing
     showCustomPalette();    // refresh the custom palette
+}
+
+// edit a color in the custom palette
+function editColor(id) {
+    colorInput.value = `#${customPalette[id - 5]}`; // place color code into input field
+    colorInput.focus(); // focus on input field for better user experience
+    colorMode = 'edit'; // change mode to edit
+    editIndex = id; // set global variable 'editIndex' to the index of color to be edited
 }
