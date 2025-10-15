@@ -3,6 +3,7 @@ let generatedPalette = [...initialPalette];  // current generated color palette
 let customPalette = [];  // custom color palette
 let colorMode = 'add';  // variable to setcolor input mode (add, edit)
 let editIndex;  // index of color to be edited
+let favorites = []; // an array to hold favorite palettes
 
 let paletteColor = document.querySelectorAll('.palette-color'); // generated palette color divs
 let colorInput = document.getElementById('color-input');    // color input field
@@ -241,4 +242,35 @@ function editColor(id) {
     colorInput.focus(); // focus on input field for better user experience
     colorMode = 'edit'; // change mode to edit
     editIndex = id; // set global variable 'editIndex' to the index of color to be edited
+}
+
+// save palette to favorites
+function savePalette() {
+    if (localStorage.getItem('favorites') == undefined) {   // if there is no favorites yet ->
+        localStorage.setItem('favorites', JSON.stringify([]));    // create favorites array in local storage
+    } else {    // favorites array already exists
+        if (favorites.length >= 10) {  // if favorites reached 10 -> do not save more palettes
+            showToast('exclamation', 'Maximum 10 favorite palettes');  // show toast message
+            return; // do not proceed
+        }
+    }
+    if (customPalette.length <= 1) {    // if no colors or only one color added -> inform the user and exit
+        showToast('exclamation', 'Minimum 2 colors per palette');  // show toast message
+        return; // do not proceed
+    }
+
+    // favorites array exists, there is at least one remaining place for the new palette,
+    // and palette has valid number of colors
+
+    // copy favorite palettes from local storage
+    favorites = JSON.parse(localStorage.favorites);
+    // object to save the new palette
+    let newPalette = {
+        id: favorites.length,
+        colors: customPalette
+    }
+    // save new palette in favorites array in local storage
+    favorites.push(newPalette);
+    localStorage.favorites = JSON.stringify(favorites);
+    showToast('check', 'Palette saved to favorites!');  // show toast message
 }
