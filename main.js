@@ -221,7 +221,7 @@ function showCustomPalette() {
 
 // remove a color from custom palette
 function removeColor(id) {
-    // if color to remove is the last -> remove the whole palettea and place the empty area
+    // if color to remove is the last -> remove the whole palette and place the empty area
     if (customPalette.length <= 1) {
         customPalette = []; // empty the customPalette array
         customPaletteContainer.remove();    // remove the custom palette
@@ -246,7 +246,7 @@ function editColor(id) {
 
 // save palette to favorites
 function savePalette() {
-    if (localStorage.getItem('favorites') == undefined) {   // if there is no favorites yet ->
+    if (!localStorage.favorites) {   // if there is no favorites yet ->
         localStorage.setItem('favorites', JSON.stringify([]));    // create favorites array in local storage
     } else {    // favorites array already exists
         if (favorites.length >= 10) {  // if favorites reached 10 -> do not save more palettes
@@ -272,5 +272,9 @@ function savePalette() {
     // save new palette in favorites array in local storage
     favorites.push(newPalette);
     localStorage.favorites = JSON.stringify(favorites);
+
+    customPalette = []; // empty the customPalette array
+    customPaletteContainer.remove();    // remove the custom palette
+    createSection.appendChild(emptyPalette);    // append the empty area to create section
     showToast('check', 'Palette saved to favorites!');  // show toast message
 }
