@@ -69,10 +69,27 @@ main {
   transition: all 0.6s ease;
 }
 
-section {
+#hero-section {
   max-width: 1152px;
   margin: 0 auto;
-  padding: 48px 16px;
+  padding: 64px 16px 32px;
+}
+
+#hero-section h1 {
+  margin: 0 0 24px;
+  font-size: 60px;
+  text-align: center;
+  line-height: 100%;
+  color: #7e47eb;
+}
+
+#hero-section p {
+  width: 672px;
+  margin: auto;
+  line-height: 1.5;
+  font-size: 20px;
+  text-align: center;
+  color: #737b8c;
 }
 
 #empty-palette {
@@ -110,6 +127,9 @@ section {
   max-width: 1400px;
   margin: 0 auto;
   padding: 64px 16px 32px;
+}
+
+#favorite-palettes {
   display: grid;
   grid-template-columns: repeat(3, auto);
   gap: 32px;

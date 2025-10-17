@@ -8,8 +8,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // display favorite palettes
 function showFavorites() {
-    // if favorites array does not exist or is empty -> place the empty area
+    // if favorites array does not exist or is empty ->
     if (!localStorage.favorites || localStorage.favorites == '[]') {
+        // place the empty area
         favoritesSection.innerHTML = `
             <div id="empty-palette">
                 <div class="website-logo-bg">
@@ -18,12 +19,17 @@ function showFavorites() {
                 <p>Your favorite palettes will appear here. <a href="../index.html#border">Create Now!</a></p>
             </div>
         `;
+        favorites = []; // empty favorites array
     } else {    // favorites array exists and has palettes to display
-        emptyPalette.remove();  // remove the empty area
+        // emptyPalette.remove();  // remove the empty area
+        favoritesSection.innerHTML = ``;
         // copy favorite palettes from local storage
         favorites = JSON.parse(localStorage.favorites);
-        // display favorite palettes
-        favorites.forEach(palette => {  // for each favorite palette ->
+        let favoritePalettes = document.createElement('div');
+        favoritePalettes.id = 'favorite-palettes';
+        favoritesSection.appendChild(favoritePalettes);
+        favorites.forEach((palette, paletteIndex) => {  // for each favorite palette -> add palette to favorite palettes
+            palette.id = paletteIndex;  // update palette ID
             let paletteEl = ''; // palette colors element
             palette.colors.forEach((color, colorIndex) => {   // for each color in the palette -> add color to palette
                 paletteEl += `
@@ -41,8 +47,9 @@ function showFavorites() {
                     </div>
                 </div>
             `;
-            favoritesSection.innerHTML += favoriteElement; // add palette element to page
+            favoritePalettes.innerHTML += favoriteElement; // add palette element to page
         });
+        localStorage.favorites = JSON.stringify(favorites); // refresh local storage
     }
 }
 
@@ -106,4 +113,11 @@ function showToast(icon, message) {
         toast.style.display = "none";
     }, 4000);
 
+}
+
+// remove favorite palette
+function removePalette(paletteId) {
+    favorites.splice(paletteId, 1); // remove palette from favorites array
+    localStorage.favorites = JSON.stringify(favorites); // refresh local storage
+    showFavorites();    // refresh favorite palettes
 }
