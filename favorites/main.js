@@ -21,13 +21,14 @@ function showFavorites() {
         `;
         favorites = []; // empty favorites array
     } else {    // favorites array exists and has palettes to display
-        // emptyPalette.remove();  // remove the empty area
-        favoritesSection.innerHTML = ``;
+        favoritesSection.innerHTML = ``;    // clear favorites section
         // copy favorite palettes from local storage
         favorites = JSON.parse(localStorage.favorites);
+        // create container for all favorite palettes
         let favoritePalettes = document.createElement('div');
         favoritePalettes.id = 'favorite-palettes';
         favoritesSection.appendChild(favoritePalettes);
+
         favorites.forEach((palette, paletteIndex) => {  // for each favorite palette -> add palette to favorite palettes
             palette.id = paletteIndex;  // update palette ID
             let paletteEl = ''; // palette colors element
@@ -120,4 +121,10 @@ function removePalette(paletteId) {
     favorites.splice(paletteId, 1); // remove palette from favorites array
     localStorage.favorites = JSON.stringify(favorites); // refresh local storage
     showFavorites();    // refresh favorite palettes
+}
+
+// edit favorite palette
+function editPalette(paletteId) {
+    sessionStorage.setItem("paletteToEdit", paletteId);
+    window.location.href = "../index.html#border";
 }

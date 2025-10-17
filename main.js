@@ -12,6 +12,15 @@ let createSection = document.getElementById('create-section');  // create sectio
 
 document.addEventListener('DOMContentLoaded', function () {
     showPalette();    // show initial generated color palette
+    if (!localStorage.favorites) {   // if favorites array in local storage is not created yet -> create it
+        localStorage.setItem('favorites', JSON.stringify([]));
+    }
+
+    if (sessionStorage.paletteToEdit) { // if there is a favorite palette to be edited
+        favorites = JSON.parse(localStorage.favorites); // get favorite palettes from local storage
+        customPalette = favorites[sessionStorage.paletteToEdit].colors; // fetch palette to edit into customPalette array
+        showCustomPalette();    // display palette for user
+    }
 });
 
 // show generated color palette
@@ -149,19 +158,11 @@ function keepHash(event) {
 }
 
 // add color to custom palette or edit existing color
-let customPaletteContainer = document.createElement('div'); // create container of custom palette
-
 function addColor() {
     let colorCode = colorInput.value.slice(1).toUpperCase();    // adjust user input
     // if color code is not valid hex or palette has no remaining space -> do not add color
     if (!isValid(colorCode)) {
         return; // do not proceed
-    }
-    // if customPalette array is empty -> create the custom palette
-    if (customPalette.length === 0) {
-        customPaletteContainer.id = 'palette-container';    // assign this ID to give container certain styles
-        createSection.appendChild(customPaletteContainer);  // append the container to create section
-        emptyPalette.remove();  // remove the empty area
     }
     // check color input mode
     if (colorMode === 'add') {  // if mode is 'add' ->
@@ -204,7 +205,12 @@ function isNotHex(colorCode) {
 }
 
 // show custom color palette
+let customPaletteContainer = document.createElement('div'); // create container of custom palette
+
 function showCustomPalette() {
+    customPaletteContainer.id = 'palette-container';    // assign this ID to give container certain styles
+    createSection.appendChild(customPaletteContainer);  // append the container to create section
+    emptyPalette.remove();  // remove the empty area
     let paletteEl = ''; // palette element
     // add colors to custom palette
     for (let i = 5; i < customPalette.length + 5; i++) {
@@ -246,31 +252,36 @@ function editColor(id) {
 
 // save palette to favorites
 function savePalette() {
-    if (!localStorage.favorites) {   // if there is no favorites yet ->
-        localStorage.setItem('favorites', JSON.stringify([]));    // create favorites array in local storage
-    } else {    // favorites array already exists
+    if (!sessionStorage.paletteToEdit) {
         if (favorites.length >= 10) {  // if favorites reached 10 -> do not save more palettes
             showToast('exclamation', 'Maximum 10 favorite palettes');  // show toast message
             return; // do not proceed
         }
     }
+
     if (customPalette.length <= 1) {    // if no colors or only one color added -> inform the user and exit
         showToast('exclamation', 'Minimum 2 colors per palette');  // show toast message
         return; // do not proceed
     }
 
-    // favorites array exists, there is at least one remaining place for the new palette,
+    // there is at least one remaining place for the new palette,
     // and palette has valid number of colors
 
     // copy favorite palettes from local storage
     favorites = JSON.parse(localStorage.favorites);
-    // object to save the new palette
-    let newPalette = {
-        id: favorites.length,
-        colors: customPalette
+
+    if (!sessionStorage.paletteToEdit) {
+        // object to save the new palette
+        let newPalette = {
+            id: favorites.length,
+            colors: customPalette
+        }
+        // save new palette in favorites array in local storage
+        favorites.push(newPalette);
+    } else {
+        favorites[sessionStorage.paletteToEdit].colors = customPalette;
+        sessionStorage.paletteToEdit = '';
     }
-    // save new palette in favorites array in local storage
-    favorites.push(newPalette);
     localStorage.favorites = JSON.stringify(favorites);
 
     customPalette = []; // empty the customPalette array
