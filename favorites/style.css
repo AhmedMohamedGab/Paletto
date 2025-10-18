@@ -69,7 +69,7 @@ main {
   transition: all 0.6s ease;
 }
 
-#hero-section {
+section {
   max-width: 1152px;
   margin: 0 auto;
   padding: 64px 16px 32px;
@@ -84,7 +84,6 @@ main {
 }
 
 #hero-section p {
-  width: 672px;
   margin: auto;
   line-height: 1.5;
   font-size: 20px;
@@ -125,8 +124,6 @@ main {
 
 #favorites-section {
   max-width: 1400px;
-  margin: 0 auto;
-  padding: 64px 16px 32px;
 }
 
 #favorite-palettes {
@@ -177,7 +174,7 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 6px 15px;
+  padding: 6px 17px;
   border-radius: 5px;
   cursor: pointer;
 }
@@ -238,99 +235,106 @@ main {
   opacity: 0;
 }
 
-@media (max-width: 992px) {
-  #favorite-palettes {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  header {
-    height: 128px;
-  }
-
+/* Responsive design for tablets */
+@media (max-width: 1025px) {
   nav {
     max-width: 90%;
   }
 
-  .website-logo {
-    width: 72px;
-    height: 72px;
-  }
-
-  .website-name h1 {
-    font-size: 48px;
-  }
-
   section {
     max-width: 90%;
-    padding: 128px 16px;
+    padding: 128px 16px 64px;
+  }
+
+  #hero-section h1 {
+    line-height: 5rem;
+  }
+
+  #hero-section p {
+    padding: 16px 8px;
   }
 
   .website-logo-bg {
-    width: 128px;
-    height: 128px;
     margin: 0 auto 48px;
   }
 
   #empty-palette p {
-    font-size: 36px;
-    line-height: 1.5;
+    font-size: 18px;
   }
 
   #favorites-section {
     max-width: 95%;
+    padding: 64px 16px;
+  }
+
+  #favorite-palettes {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .palette-color {
+    font-size: 18px;
+  }
+
+  .palette-color i,
+  .palette-tools i {
+    font-size: 22px;
+  }
+
+  #toast {
+    top: 108px;
+    left: calc(50vw - 177px);
+  }
+
+  .close {
+    transform: translateY(-50px);
+  }
+}
+
+/* Responsive design for phones */
+@media (max-width: 768px) {
+  header {
+    height: 56px;
+  }
+
+  nav {
+    max-width: 95%;
+  }
+
+  .website-logo {
+    width: 32px;
+    height: 32px;
+  }
+
+  .website-name h1 {
+    font-size: 22px;
+  }
+
+  section {
+    max-width: 90%;
+    padding: 64px 16px 32px;
+  }
+
+  #hero-section h1 {
+    font-size: 34px;
+    line-height: 3rem;
+  }
+
+  #hero-section p {
+    font-size: 16px;
   }
 
   #favorite-palettes {
     grid-template-columns: 1fr;
   }
 
-  .palette-container {
-    height: 270px;
-  }
-
-  .palette-container,
   #toast {
-    border-radius: 16px;
-  }
-
-  .palette-tools i {
-    border-radius: 10px;
-    padding: 10px 28px;
-  }
-
-  .palette-color {
-    font-size: 28px;
-  }
-
-  .palette-color i,
-  .palette-tools i {
-    font-size: 36px;
-  }
-
-  #toast {
-    width: 70%;
-    height: 108px;
-    top: 10%;
-    right: 15%;
-  }
-
-  .toast-icon {
-    width: 48px;
-    height: 48px;
-    margin-right: 24px;
-  }
-
-  .toast-icon i {
-    font-size: 20px;
-  }
-
-  .toast-content {
-    font-size: 28px;
+    width: 280px;
+    height: 42px;
+    top: 84px;
+    left: calc(50vw - 140px);
   }
 
   .close {
-    transform: translateY(-108px);
+    transform: translateY(-50px);
   }
 }

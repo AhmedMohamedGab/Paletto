@@ -17,6 +17,10 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.setItem('favorites', JSON.stringify([]));
     }
 
+    if (localStorage.favorites == '[]') {   // if no favorite palettes -> no palette to edit
+        sessionStorage.paletteToEdit = '';
+    }
+
     if (sessionStorage.paletteToEdit) { // if there is a favorite palette to be edited
         favorites = JSON.parse(localStorage.favorites); // get favorite palettes from local storage
         customPalette = favorites[sessionStorage.paletteToEdit].colors; // fetch palette to edit into customPalette array

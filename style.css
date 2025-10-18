@@ -87,7 +87,6 @@ section {
 }
 
 #hero-section p {
-  width: 672px;
   margin: auto;
   line-height: 1.5;
   font-size: 20px;
@@ -208,7 +207,7 @@ section {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 6px 15px;
+  padding: 6px 17px;
   border-radius: 5px;
 }
 
@@ -385,39 +384,27 @@ footer a:hover {
   opacity: 0;
 }
 
-@media (max-width: 768px) {
-  header {
-    height: 128px;
-  }
-
+/* Responsive design for tablets */
+@media (max-width: 1025px) {
   nav {
     max-width: 90%;
   }
 
-  .website-logo {
-    width: 72px;
-    height: 72px;
+  section {
+    padding: 64px 16px;
   }
 
-  .website-name h1 {
-    font-size: 48px;
-  }
-
-  section,
   #hero-section {
     max-width: 90%;
-    padding: 128px 16px;
+    padding: 128px 16px 64px;
   }
 
   #hero-section h1 {
-    font-size: 108px;
-    margin: 0 0 72px;
-    line-height: 128%;
+    line-height: 5rem;
   }
 
   #hero-section p {
-    width: 90%;
-    font-size: 36px;
+    padding: 16px 8px;
   }
 
   .generate-container,
@@ -427,120 +414,186 @@ footer a:hover {
 
   .generate-container h2,
   .create-container h2 {
-    font-size: 64px;
     margin-bottom: 36px;
-    line-height: 5rem;
   }
 
   .generate-container p,
   .create-container p {
-    font-size: 36px;
-    margin-bottom: 128px;
+    font-size: 18px;
+    margin-bottom: 56px;
   }
 
   #favorites-btn,
   #generate-btn,
   #save-palette-btn {
-    height: 84px;
-    font-size: 32px;
-    border-radius: 16px;
+    font-size: 18px;
   }
 
   #palette-container {
     width: 90%;
-    height: 380px;
-  }
-
-  #palette-container,
-  #color-input,
-  .add-color-container button,
-  #toast {
-    border-radius: 16px;
-  }
-
-  .color-tools i {
-    border-radius: 10px;
-    padding: 10px 28px;
+    height: 300px;
   }
 
   .palette-color,
   .color-container {
-    font-size: 28px;
+    font-size: 18px;
   }
 
   .input-container {
-    width: 90%;
+    width: 70%;
   }
 
   #color-input {
-    width: 648px;
-    height: 96px;
-    font-size: 38px;
-  }
-
-  #color-input:focus {
-    box-shadow: 0px 0px 0px 12px #7e47eb;
-    outline: 6px solid #ffffff;
+    width: 100%;
+    height: 56px;
+    font-size: 22px;
   }
 
   .add-color-container {
-    margin: 0 0 32px;
+    margin: 0 0 8px;
   }
 
   .add-color-container button {
-    width: 104px;
-    height: 96px;
-    font-size: 36px;
-    padding: 8px 16px;
+    width: 64px;
+    height: 56px;
+    font-size: 22px;
+    margin-left: 8px;
   }
 
   .website-logo-bg {
-    width: 128px;
-    height: 128px;
     margin: 0 auto 48px;
   }
 
   #empty-palette p {
-    font-size: 36px;
-    line-height: 1.5;
+    font-size: 18px;
   }
 
   .palette-color i,
   .color-container i {
-    font-size: 36px;
-  }
-
-  footer {
-    padding: 56px 0;
-    margin: 96px 0 0;
-  }
-
-  footer p {
-    font-size: 32px;
+    font-size: 22px;
   }
 
   #toast {
-    width: 70%;
-    height: 108px;
-    top: 10%;
-    right: 15%;
-  }
-
-  .toast-icon {
-    width: 48px;
-    height: 48px;
-    margin-right: 24px;
-  }
-
-  .toast-icon i {
-    font-size: 20px;
-  }
-
-  .toast-content {
-    font-size: 28px;
+    top: 108px;
+    left: calc(50vw - 177px);
   }
 
   .close {
-    transform: translateY(-108px);
+    transform: translateY(-50px);
+  }
+}
+
+/* Responsive design for phones */
+@media (max-width: 768px) {
+  header {
+    height: 56px;
+  }
+
+  nav {
+    max-width: 95%;
+  }
+
+  .website-logo {
+    width: 32px;
+    height: 32px;
+  }
+
+  .website-name h1 {
+    font-size: 22px;
+  }
+
+  section,
+  #hero-section {
+    max-width: 90%;
+    padding: 64px 16px 32px;
+  }
+
+  #hero-section h1 {
+    font-size: 34px;
+    line-height: 3rem;
+  }
+
+  #hero-section p {
+    font-size: 16px;
+  }
+
+  .generate-container,
+  .create-container {
+    margin-bottom: 96px;
+  }
+
+  .generate-container h2,
+  .create-container h2 {
+    font-size: 22px;
+    margin-bottom: 36px;
+  }
+
+  .generate-container p,
+  .create-container p {
+    font-size: 16px;
+    margin-bottom: 56px;
+  }
+
+  #favorites-btn {
+    font-size: 10px;
+    padding: 0 8px;
+    height: 36px;
+  }
+
+  #favorites-btn i {
+    margin-right: 6px;
+  }
+
+  #generate-btn,
+  #save-palette-btn {
+    font-size: 14px;
+  }
+
+  #palette-container {
+    width: 90%;
+    height: 170px;
+  }
+
+  .palette-color,
+  .color-container {
+    font-size: 18px;
+  }
+
+  .input-container {
+    width: 95%;
+  }
+
+  #color-input {
+    height: 44px;
+  }
+
+  .add-color-container button {
+    width: 48px;
+    height: 44px;
+    font-size: 18px;
+  }
+
+  #empty-palette p {
+    font-size: 16px;
+  }
+
+  .palette-color i,
+  .color-container i {
+    font-size: 18px;
+  }
+
+  footer {
+    padding: 22px 0;
+  }
+
+  #toast {
+    width: 280px;
+    height: 42px;
+    top: 84px;
+    left: calc(50vw - 140px);
+  }
+
+  .close {
+    transform: translateY(-50px);
   }
 }
