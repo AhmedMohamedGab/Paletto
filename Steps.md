@@ -1,4 +1,4 @@
-# Initial ideas
+# Project Main Functionalities
 
 - Make structure for home page
 - Apply style on home page
