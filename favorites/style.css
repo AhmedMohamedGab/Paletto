@@ -331,6 +331,10 @@ section {
     grid-template-columns: 1fr;
   }
 
+  .palette-color {
+    font-size: 14px;
+  }
+
   #toast {
     width: 280px;
     height: 42px;
