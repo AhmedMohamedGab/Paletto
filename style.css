@@ -550,7 +550,7 @@ footer a:hover {
   }
 
   #palette-container {
-    width: 90%;
+    width: 100%;
     height: 170px;
   }
 
@@ -579,7 +579,7 @@ footer a:hover {
 
   .palette-color i,
   .color-container i {
-    font-size: 18px;
+    font-size: 22px;
   }
 
   footer {
