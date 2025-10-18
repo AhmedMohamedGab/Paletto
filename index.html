@@ -71,13 +71,16 @@
                     <h2>Custom Palette Creator</h2>
                     <p>Build your own color palettes by adding hex colors</p>
                     <div class="input-container">
-                        <input maxlength="7" type="text" id="color-input" value="#" oninput="keepHash()"
-                            onkeydown="keepHash(event)">
-                        <button type="button" id="add-color-btn" title="Add Color" onclick="addColor()">
-                            <i class="fa-solid fa-plus"></i>
-                        </button>
+                        <div class="add-color-container">
+                            <input maxlength="7" type="text" id="color-input" value="#" oninput="keepHash()"
+                                onkeydown="keepHash(event)">
+                            <button type="button" id="add-color-btn" title="Add Color" onclick="addColor()">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
                         <button type="button" id="save-palette-btn" title="Save Palette" onclick="savePalette()">
-                            <i class="fa-solid fa-check"></i>
+                            <i class="fa-solid fa-bookmark"></i>
+                            <span>Save Palette</span>
                         </button>
                     </div>
                 </div>

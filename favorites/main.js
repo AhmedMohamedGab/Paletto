@@ -87,7 +87,7 @@ function copyColorCode(paletteId, colorIndex) {
     let colorDiv = document.getElementById(paletteId).querySelector('.palette-container').children[colorIndex];
 
     navigator.clipboard.writeText(`${favorites[paletteId].colors[colorIndex]}`);    // copy color code to clipboard
-    colorDiv.innerHTML = `<i class="fa-solid fa-check" style="font-size:22px"></i>`;    // show check icon
+    colorDiv.innerHTML = `<i class="fa-solid fa-check"></i>`;    // show check icon
     showToast('check', 'Color code copied to clipboard!'); // show toast message
 }
 

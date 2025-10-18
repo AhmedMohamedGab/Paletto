@@ -12,6 +12,7 @@ let createSection = document.getElementById('create-section');  // create sectio
 
 document.addEventListener('DOMContentLoaded', function () {
     showPalette();    // show initial generated color palette
+
     if (!localStorage.favorites) {   // if favorites array in local storage is not created yet -> create it
         localStorage.setItem('favorites', JSON.stringify([]));
     }
@@ -83,12 +84,12 @@ function copyColorCode(id) {
 
     if (id < 5) {   // generated palette
         navigator.clipboard.writeText(`${generatedPalette[id]}`);    // copy color code to clipboard
-        colorDiv.innerHTML = `<i class="fa-solid fa-check" style="font-size:22px"></i>`;    // show check icon
+        colorDiv.innerHTML = `<i class="fa-solid fa-check"></i>`;    // show check icon
     } else {    // custom palette
         navigator.clipboard.writeText(`${customPalette[id - 5]}`);    // copy color code to clipboard
         // show check icon
         colorDiv.querySelector('.custom-color').innerHTML = `
-            <i class="fa-solid fa-check" style="font-size:22px"></i>
+            <i class="fa-solid fa-check"></i>
         `;
     }
 

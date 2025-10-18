@@ -120,7 +120,8 @@ section {
 }
 
 #favorites-btn,
-#generate-btn {
+#generate-btn,
+#save-palette-btn {
   height: 44px;
   background-color: #7e47eb;
   color: #ffffff;
@@ -134,23 +135,15 @@ section {
   transition: all 0.3s ease;
 }
 
-#favorites-btn:hover {
+#favorites-btn:hover,
+#generate-btn:hover,
+#save-palette-btn:hover {
   background-color: #8b5cf6;
-}
-
-#generate-btn:hover {
-  background-color: #8b5cf6;
-  box-shadow: 0px 8px 15px rgba(139, 92, 246, 0.4);
-  transform: translateY(-2px);
-}
-
-#generate-btn:active {
-  transform: translateY(0px);
-  box-shadow: 0px 5px 10px rgba(126, 71, 235, 0.3);
 }
 
 #favorites-btn i,
-#generate-btn i {
+#generate-btn i,
+#save-palette-btn i {
   margin-right: 11px;
 }
 
@@ -177,6 +170,11 @@ section {
   font-weight: bold;
   letter-spacing: 1px;
   transition: all 0.15s ease;
+}
+
+.palette-color i,
+.color-container i {
+  font-size: 22px;
 }
 
 .color-container {
@@ -242,13 +240,14 @@ hr {
   width: 448px;
   margin: 0 auto;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
 }
 
 #color-input {
   font-family: "ui-monospace", "SFMono-Regular", Menlo, Monaco, Consolas,
     "Liberation Mono", monospace;
-  width: 328px;
+  width: 388px;
   height: 40px;
   border: 1px solid #e4e4e7;
   border-radius: 10px;
@@ -265,7 +264,14 @@ hr {
   outline: 2px solid #ffffff;
 }
 
-.input-container button {
+.add-color-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0 16px;
+}
+
+.add-color-container button {
   width: 48px;
   height: 40px;
   background-color: #7e47eb;
@@ -433,10 +439,11 @@ footer a:hover {
   }
 
   #favorites-btn,
-  #generate-btn {
-    height: 72px;
+  #generate-btn,
+  #save-palette-btn {
+    height: 84px;
     font-size: 32px;
-    padding: 0 24px;
+    border-radius: 16px;
   }
 
   #palette-container {
@@ -444,20 +451,29 @@ footer a:hover {
     height: 380px;
   }
 
+  #palette-container,
+  #color-input,
+  .add-color-container button,
+  #toast {
+    border-radius: 16px;
+  }
+
+  .color-tools i {
+    border-radius: 10px;
+    padding: 10px 28px;
+  }
+
   .palette-color,
   .color-container {
-    font-size: 36px;
+    font-size: 28px;
   }
 
   .input-container {
-    width: 80%;
-    flex-direction: column;
-    align-items: center;
-    gap: 36px;
+    width: 90%;
   }
 
   #color-input {
-    width: 100%;
+    width: 648px;
     height: 96px;
     font-size: 38px;
   }
@@ -467,10 +483,15 @@ footer a:hover {
     outline: 6px solid #ffffff;
   }
 
-  .input-container button {
-    width: 100%;
+  .add-color-container {
+    margin: 0 0 32px;
+  }
+
+  .add-color-container button {
+    width: 104px;
     height: 96px;
     font-size: 36px;
+    padding: 8px 16px;
   }
 
   .website-logo-bg {
@@ -482,6 +503,11 @@ footer a:hover {
   #empty-palette p {
     font-size: 36px;
     line-height: 1.5;
+  }
+
+  .palette-color i,
+  .color-container i {
+    font-size: 36px;
   }
 
   footer {

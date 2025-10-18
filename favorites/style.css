@@ -131,7 +131,7 @@ main {
 
 #favorite-palettes {
   display: grid;
-  grid-template-columns: repeat(3, auto);
+  grid-template-columns: repeat(3, 1fr);
   gap: 32px;
 }
 
@@ -159,6 +159,10 @@ main {
 
 .palette-color:hover {
   flex-basis: 260%;
+}
+
+.palette-color i {
+  font-size: 22px;
 }
 
 .palette-tools {
@@ -235,8 +239,8 @@ main {
 }
 
 @media (max-width: 992px) {
-  #favorites-section {
-    grid-template-columns: repeat(2, auto);
+  #favorite-palettes {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -276,11 +280,33 @@ main {
 
   #favorites-section {
     max-width: 95%;
-    grid-template-columns: auto;
+  }
+
+  #favorite-palettes {
+    grid-template-columns: 1fr;
   }
 
   .palette-container {
     height: 270px;
+  }
+
+  .palette-container,
+  #toast {
+    border-radius: 16px;
+  }
+
+  .palette-tools i {
+    border-radius: 10px;
+    padding: 10px 28px;
+  }
+
+  .palette-color {
+    font-size: 28px;
+  }
+
+  .palette-color i,
+  .palette-tools i {
+    font-size: 36px;
   }
 
   #toast {
