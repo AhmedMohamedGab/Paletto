@@ -2,9 +2,8 @@ let emptyPalette = document.getElementById('empty-palette');   // empty palette 
 let favoritesSection = document.getElementById('favorites-section');   // favorite palette section
 let favorites = []; // an array to hold favorite palettes
 
-document.addEventListener('DOMContentLoaded', function () {
-    showFavorites();    // show favorite color palettes
-});
+// show favorite color palettes on page load
+document.addEventListener('DOMContentLoaded', showFavorites());
 
 // display favorite palettes
 function showFavorites() {
@@ -96,7 +95,8 @@ function showToast(icon, message) {
     // create toast container
     let toast = document.createElement('div');
     toast.id = 'toast';
-    document.body.appendChild(toast);
+    let toastBox = document.querySelector('.toastBox');
+    toastBox.appendChild(toast);
     // add toast content
     toast.innerHTML = `
         <div class="toast-icon">
@@ -113,7 +113,6 @@ function showToast(icon, message) {
     setTimeout(() => {
         toast.style.display = "none";
     }, 4000);
-
 }
 
 // remove favorite palette
@@ -121,6 +120,7 @@ function removePalette(paletteId) {
     favorites.splice(paletteId, 1); // remove palette from favorites array
     localStorage.favorites = JSON.stringify(favorites); // refresh local storage
     showFavorites();    // refresh favorite palettes
+    showToast('check', 'Palette removed successfully!'); // show toast message
 }
 
 // edit favorite palette

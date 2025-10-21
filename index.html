@@ -50,16 +50,16 @@
                     </button>
                 </div>
                 <div id="palette-container">
-                    <div class="palette-color" id="0" onmouseenter="showColorCode(this.id)"
-                        onmouseleave="hideColorCode(this.id)" onclick="copyColorCode(this.id)"></div>
-                    <div class="palette-color" id="1" onmouseenter="showColorCode(this.id)"
-                        onmouseleave="hideColorCode(this.id)" onclick="copyColorCode(this.id)"></div>
-                    <div class="palette-color" id="2" onmouseenter="showColorCode(this.id)"
-                        onmouseleave="hideColorCode(this.id)" onclick="copyColorCode(this.id)"></div>
-                    <div class="palette-color" id="3" onmouseenter="showColorCode(this.id)"
-                        onmouseleave="hideColorCode(this.id)" onclick="copyColorCode(this.id)"></div>
-                    <div class="palette-color" id="4" onmouseenter="showColorCode(this.id)"
-                        onmouseleave="hideColorCode(this.id)" onclick="copyColorCode(this.id)"></div>
+                    <div class="palette-color" onmouseenter="showColorCode(event)" onmouseleave="hideColorCode(event)"
+                        onclick="copyColorCode(event)"></div>
+                    <div class="palette-color" onmouseenter="showColorCode(event)" onmouseleave="hideColorCode(event)"
+                        onclick="copyColorCode(event)"></div>
+                    <div class="palette-color" onmouseenter="showColorCode(event)" onmouseleave="hideColorCode(event)"
+                        onclick="copyColorCode(event)"></div>
+                    <div class="palette-color" onmouseenter="showColorCode(event)" onmouseleave="hideColorCode(event)"
+                        onclick="copyColorCode(event)"></div>
+                    <div class="palette-color" onmouseenter="showColorCode(event)" onmouseleave="hideColorCode(event)"
+                        onclick="copyColorCode(event)"></div>
                 </div>
             </section>
 
@@ -105,6 +105,8 @@
             </p>
         </footer>
     </div>
+
+    <div class="toastBox"></div>
 
     <script src="main.js"></script>
 

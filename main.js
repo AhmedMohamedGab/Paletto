@@ -35,29 +35,36 @@ function showPalette() {
     });
 }
 
-// show color code on mouse enter
-function showColorCode(id) {
-    let colorDiv = document.getElementById(id);
+// convert RGB to HEX
+function rgbToHex(color) {
+    const rgbMatch = color.match(/^rgba?\(\s*([^)]+)\)/i);
+    const parts = rgbMatch[1].split(',').map(s => s.trim());
+    const r = Math.max(0, Math.min(255, parseInt(parts[0], 10) || 0));
+    const g = Math.max(0, Math.min(255, parseInt(parts[1], 10) || 0));
+    const b = Math.max(0, Math.min(255, parseInt(parts[2], 10) || 0));
+    return [r, g, b].map(n => n.toString(16).padStart(2, '0')).join('').toUpperCase();
+}
 
-    if (id < 5) {   // generated palette
-        if (isLight(`#${generatedPalette[id]}`) === "light") {
-            colorDiv.style.color = "#2b303b";   // set dark text color for light background
-        } else {
-            colorDiv.style.color = "#fff";   // set light text color for dark background
-        }
-        colorDiv.innerHTML = `${generatedPalette[id]}`;  // show color code
+// show color code on mouse enter
+function showColorCode(e, i = 100) {
+    let colorDiv = e.target;
+    let bgColor = rgbToHex(colorDiv.style.backgroundColor.toString());
+
+    if (isLight(`#${bgColor}`) === "light") {
+        colorDiv.style.color = "#2b303b";   // set dark text color for light background
+    } else {
+        colorDiv.style.color = "#fff";   // set light text color for dark background
+    }
+
+    if (colorDiv.childElementCount <= 1) {    // generated palette
+        colorDiv.innerHTML = `${bgColor}`;  // show color code
     } else {    // custom palette
-        if (isLight(`#${customPalette[id - 5]}`) === "light") {
-            colorDiv.style.color = "#2b303b";   // set dark text color for light background
-        } else {
-            colorDiv.style.color = "#fff";   // set light text color for dark background
-        }
-        // show color code and icons
+        // show control icons
         colorDiv.querySelector('.color-tools').innerHTML = `
-            <i class="fa-regular fa-pen-to-square" onclick="editColor(${id})"></i>
-            <i class="fa-solid fa-trash" onclick="removeColor(${id})"></i>
-        `;
-        colorDiv.querySelector('.custom-color').innerHTML = `${customPalette[id - 5]}`;
+                <i class="fa-regular fa-pen-to-square" onclick="editColor(${i})"></i>
+                <i class="fa-solid fa-trash" onclick="removeColor(${i})"></i>
+            `;
+        colorDiv.querySelector('.custom-color').innerHTML = `${bgColor}`;   // show color code
     }
 }
 
@@ -72,31 +79,24 @@ function isLight(hex) {
 }
 
 // hide color code on mouse leave
-function hideColorCode(id) {
-    let colorDiv = document.getElementById(id);
-    if (id < 5) {   // generated palette
-        colorDiv.innerHTML = ``;
+function hideColorCode(e) {
+    let colorDiv = e.target;
+
+    if (colorDiv.childElementCount <= 1) {    // generated palette
+        colorDiv.innerHTML = ``;    // hide color code
     } else {    // custom palette
-        colorDiv.querySelector('.color-tools').innerHTML = ``;
-        colorDiv.querySelector('.custom-color').innerHTML = ``;
+        colorDiv.querySelector('.color-tools').innerHTML = ``;  // hide control icons
+        colorDiv.querySelector('.custom-color').innerHTML = ``; // hide color code
     }
 }
 
 // copy color code to clipboard on click
-function copyColorCode(id) {
-    let colorDiv = document.getElementById(id);
+function copyColorCode(e) {
+    let colorDiv = e.target;
+    let bgColor = rgbToHex(colorDiv.style.backgroundColor.toString());
 
-    if (id < 5) {   // generated palette
-        navigator.clipboard.writeText(`${generatedPalette[id]}`);    // copy color code to clipboard
-        colorDiv.innerHTML = `<i class="fa-solid fa-check"></i>`;    // show check icon
-    } else {    // custom palette
-        navigator.clipboard.writeText(`${customPalette[id - 5]}`);    // copy color code to clipboard
-        // show check icon
-        colorDiv.querySelector('.custom-color').innerHTML = `
-            <i class="fa-solid fa-check"></i>
-        `;
-    }
-
+    navigator.clipboard.writeText(`${bgColor}`);    // copy color code to clipboard
+    colorDiv.innerHTML = `<i class="fa-solid fa-check"></i>`;    // show check icon
     showToast('check', 'Color code copied to clipboard!'); // show toast message
 }
 
@@ -105,7 +105,8 @@ function showToast(icon, message) {
     // create toast container
     let toast = document.createElement('div');
     toast.id = 'toast';
-    document.body.appendChild(toast);
+    let toastBox = document.querySelector('.toastBox');
+    toastBox.appendChild(toast);
     // add toast content
     toast.innerHTML = `
         <div class="toast-icon">
@@ -122,7 +123,6 @@ function showToast(icon, message) {
     setTimeout(() => {
         toast.style.display = "none";
     }, 4000);
-
 }
 
 // generate random color
@@ -173,7 +173,7 @@ function addColor() {
     if (colorMode === 'add') {  // if mode is 'add' ->
         customPalette.push(colorCode);  // add color to customPalette array
     } else {    // if mode is 'edit' ->
-        customPalette[editIndex - 5] = colorCode;   // edit color in customPalette array
+        customPalette[editIndex] = colorCode;   // edit color in customPalette array
         colorMode = 'add';  // reset color input mode to 'add'
     }
     showCustomPalette();    // refresh the custom palette
@@ -218,12 +218,12 @@ function showCustomPalette() {
     emptyPalette.remove();  // remove the empty area
     let paletteEl = ''; // palette element
     // add colors to custom palette
-    for (let i = 5; i < customPalette.length + 5; i++) {
+    for (let i = 0; i < customPalette.length; i++) {
         paletteEl += `
-            <div class="color-container" id="${i}" style="background-color:#${customPalette[i - 5]}"
-                onmouseenter="showColorCode(${i})" onmouseleave="hideColorCode(${i})">
+            <div class="color-container" id="${i}" style="background-color:#${customPalette[i]}"
+                onmouseenter="showColorCode(event, ${i})" onmouseleave="hideColorCode(event)">
                 <div class="color-tools"></div>
-                <div class="custom-color" onclick="copyColorCode(${i})"></div>
+                <div class="custom-color" style="background-color:#${customPalette[i]}" onclick="copyColorCode(event)"></div>
             </div>
         `;
     }
@@ -231,7 +231,7 @@ function showCustomPalette() {
 }
 
 // remove a color from custom palette
-function removeColor(id) {
+function removeColor(i) {
     // if color to remove is the last -> remove the whole palette and place the empty area
     if (customPalette.length <= 1) {
         customPalette = []; // empty the customPalette array
@@ -240,24 +240,24 @@ function removeColor(id) {
         return; // exit the function
     }
     // color to remove is not the last
-    let colorDiv = document.getElementById(id);
+    let colorDiv = document.getElementById(i);
     colorDiv.remove();  // remove the color from custom palette
-    customPalette.splice(id - 5, 1);    // remove the color from customPalette array
+    customPalette.splice(i, 1); // remove the color from customPalette array
     colorMode = 'add'; // reset color input mode to 'add' in case user removed the color he/she was editing
     showCustomPalette();    // refresh the custom palette
 }
 
 // edit a color in the custom palette
-function editColor(id) {
-    colorInput.value = `#${customPalette[id - 5]}`; // place color code into input field
+function editColor(i) {
+    colorInput.value = `#${customPalette[i]}`; // place color code into input field
     colorInput.focus(); // focus on input field for better user experience
     colorMode = 'edit'; // change mode to edit
-    editIndex = id; // set global variable 'editIndex' to the index of color to be edited
+    editIndex = i; // set global variable editIndex to the index of color to be edited
 }
 
 // save palette to favorites
 function savePalette() {
-    if (!sessionStorage.paletteToEdit) {
+    if (!sessionStorage.paletteToEdit) {    // if adding a new palette
         if (favorites.length >= 10) {  // if favorites reached 10 -> do not save more palettes
             showToast('exclamation', 'Maximum 10 favorite palettes');  // show toast message
             return; // do not proceed
@@ -275,7 +275,7 @@ function savePalette() {
     // copy favorite palettes from local storage
     favorites = JSON.parse(localStorage.favorites);
 
-    if (!sessionStorage.paletteToEdit) {
+    if (!sessionStorage.paletteToEdit) {    // if adding a new palette
         // object to save the new palette
         let newPalette = {
             id: favorites.length,
@@ -283,12 +283,14 @@ function savePalette() {
         }
         // save new palette in favorites array in local storage
         favorites.push(newPalette);
-    } else {
+    } else {    // updating an existing palette
+        // save existing palette in favorites array in local storage
         favorites[sessionStorage.paletteToEdit].colors = customPalette;
-        sessionStorage.paletteToEdit = '';
+        sessionStorage.paletteToEdit = '';  // reset paletteToEdit to return to add mode
     }
-    localStorage.favorites = JSON.stringify(favorites);
 
+    // update favorites array in local storage
+    localStorage.favorites = JSON.stringify(favorites);
     customPalette = []; // empty the customPalette array
     customPaletteContainer.remove();    // remove the custom palette
     createSection.appendChild(emptyPalette);    // append the empty area to create section
