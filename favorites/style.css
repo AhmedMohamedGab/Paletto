@@ -214,6 +214,7 @@ section {
   border-radius: 8px;
   border: 1px solid #e4e4e7;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
   transform: translateY(50px);
   animation: moveToast 0.5s ease forwards;
   display: flex;
@@ -225,6 +226,23 @@ section {
 @keyframes moveToast {
   100% {
     transform: translateY(0);
+  }
+}
+
+#toast::after {
+  content: '';
+  width: 100%;
+  height: 3px;
+  background-color: #7e47eb;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  animation: toastSlider 3.25s linear forwards;
+}
+
+@keyframes toastSlider {
+  100% {
+    transform: translateX(-100%);
   }
 }
 
