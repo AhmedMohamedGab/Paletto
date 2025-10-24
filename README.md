@@ -2,7 +2,7 @@
 
 Paletto is a random color palette generator and manager where you can generate random palettes, craft custom palettes, and save your favorite palettes to use anytime.
 
-Demo: Open `[https://palettogen.netlify.app/]` in a modern browser.
+Demo: Open [https://palettogen.netlify.app/] in a modern browser.
 
 ---
 
